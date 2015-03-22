@@ -1,0 +1,36 @@
+public class Solution {
+    public int maxArea(int[] height) {
+        int num = height.length;
+        int maxAreaContainer = 0;
+        for(int i = 0; i < num; i++){
+            // find the farest element that's bigger than height[i]
+            int temp = findFarestBigger(i, height);
+            if(temp >= 0){ // find a valid farest bigger element
+                int currArea = Math.abs(i-temp) * height[i];
+                maxAreaContainer = (currArea >= maxAreaContainer ? currArea : maxAreaContainer);
+            }
+        }
+        return maxAreaContainer;
+    }
+    public int findFarestBigger(int ind, int[] arr){
+        int len = arr.length;
+        int front = 0;
+        int back = len - 1;
+        while(front <= back){
+            if(arr[front] >= arr[ind] && arr[back] < arr[ind]){
+                if(Math.abs(ind - front) > Math.abs(back - ind))    return front;
+                back --;
+            }else if(arr[front] >= arr[ind] && arr[back] >= arr[ind]){
+                if(Math.abs(ind - front) > Math.abs(back - ind))    return front;
+                else return back;
+            }else if(arr[front] < arr[ind] && arr[back] >= arr[ind]){
+                if(Math.abs(ind - front) < Math.abs(back - ind))    return back;
+                front ++;
+            }else{
+                front ++;
+                back --;
+            }
+        }
+        return -1;
+    }
+}
