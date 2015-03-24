@@ -1,0 +1,44 @@
+public class Solution {
+    public String intToRoman(int num) {
+        Map<Integer, String> numRoman = new HashMap<Integer, String>();
+        numRoman.put(1, "I");
+        numRoman.put(4, "IV");
+        numRoman.put(5, "V");
+       // numRoman.put(6, "VI");
+        numRoman.put(9, "IX");
+        numRoman.put(10, "X");
+       // numRoman.put(11, 'XI');
+        numRoman.put(40, "XL");
+        numRoman.put(50, "L");
+        //numRoman.put(60, 'LX');
+        numRoman.put(90, "XC");
+        numRoman.put(100, "C");
+        //numRoman.put(110, 'CX');
+        numRoman.put(400, "CD");
+        numRoman.put(500, "D");
+        //numRoman.put(600, "DC');
+        numRoman.put(900, "CM");
+        numRoman.put(1000, "M");
+        String res = "";
+        int[] inc = {1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1};
+        int divider = 0;
+        for(int temp : inc){
+            if(numRoman.containsKey(num)){
+                res += numRoman.get(num);
+                break;
+            }   
+            else{
+                divider = num / temp;
+                if(numRoman.containsKey(divider*temp)) res += numRoman.get(divider*temp);
+                else{
+                    for(int i = 0; i < divider; i++)
+                        res += numRoman.get(temp);
+                }    
+            }
+            num %= temp;
+        }
+        
+        return res;
+    }
+    
+}
