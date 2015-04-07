@@ -1,0 +1,81 @@
+public class Solution {
+    public List<String> letterCombinations(String digits) {
+        List<String> result = new ArrayList<String>();
+        String allLetters = "";
+        HashMap<Character, String> digitToLetters = new HashMap<Character, String>(); 
+        digitToLetters.put('1', "");
+        digitToLetters.put('2', "abc");
+        digitToLetters.put('3', "def");
+        digitToLetters.put('4', "ghi");
+        digitToLetters.put('5', "jkl");
+        digitToLetters.put('6', "mno");
+        digitToLetters.put('7', "pqrs");
+        digitToLetters.put('8', "tuv");
+        digitToLetters.put('9', "wxyz");
+        digitToLetters.put('*', "");
+        digitToLetters.put('0', "");
+        digitToLetters.put('#', "");
+        int numDigits = digits.length();
+        if(numDigits < 1)   return result;
+        if(numDigits == 1){
+            Character index = new Character(digits.charAt(0));
+            String letters = digitToLetters.get(index);
+            int lenLetters = letters.length();
+            for(int m = 0; m < lenLetters; m ++){
+                String temp = "" + letters.charAt(m);
+                result.add(temp);
+            }
+            return result;
+        }
+        for(int k = 0; k < digits.length(); k++){
+            Character temp = new Character(digits.charAt(k));
+            allLetters += digitToLetters.get(temp);
+        }
+        int len = allLetters.length();
+        for(int i = 0; i < len; i++){
+            for(int j = i+1; j < len; j++){
+                String tempI = "" + allLetters.charAt(i);
+                String tempJ = "" + allLetters.charAt(j);
+                //if(getKey(tempI) != getKey(tempJ)){
+                    String temp = tempI + tempJ;
+                    if(!result.contains(temp)){
+                        result.add(temp);
+                    }
+                //}
+            }
+        }
+        return result;
+    }
+    
+    public Character getKey(String value){
+        if(value == "") return '0';
+        HashMap<String, Character> lettersToDigit = new HashMap<String, Character>(); 
+        lettersToDigit.put("a", '2');
+        lettersToDigit.put("b", '2');
+        lettersToDigit.put("c", '2');
+        lettersToDigit.put("d", '3');
+        lettersToDigit.put("e", '3');
+        lettersToDigit.put("f", '3');
+        lettersToDigit.put("g", '4');
+        lettersToDigit.put("h", '4');
+        lettersToDigit.put("i", '4');
+        lettersToDigit.put("j", '5');
+        lettersToDigit.put("k", '5');
+        lettersToDigit.put("l", '5');
+        lettersToDigit.put("m", '6');
+        lettersToDigit.put("n", '6');
+        lettersToDigit.put("o", '6');
+        lettersToDigit.put("p", '7');
+        lettersToDigit.put("q", '7');
+        lettersToDigit.put("r", '7');
+        lettersToDigit.put("s", '7');
+        lettersToDigit.put("t", '8');
+        lettersToDigit.put("u", '8');
+        lettersToDigit.put("v", '8');
+        lettersToDigit.put("w", '9');
+        lettersToDigit.put("x", '9');
+        lettersToDigit.put("y", '9');
+        lettersToDigit.put("z", '9');
+        return lettersToDigit.get(value);
+    }
+}
